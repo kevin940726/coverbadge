@@ -5,7 +5,7 @@ const { coverbadge } = require('../');
 const argv = yargs
   .alias('o', 'out-file')
   .alias('')
-  .default('o', './coverage/coverage.svg', '(output file path)')
+  .default('o', './coverage/badge.svg', '(output file path)')
   .nargs('o', 1)
   .argv
 
