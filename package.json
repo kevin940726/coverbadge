@@ -1,0 +1,33 @@
+{
+  "name": "coverbadge",
+  "version": "0.1.0",
+  "description": "Create a coverage badge without any service provider.",
+  "main": "index.js",
+  "bin": {
+    "coverbadge": "./bin/coverbadge.js"
+  },
+  "repository": "https://github.com/kevin940726/coverbadge",
+  "author": "Kai Hao",
+  "license": "MIT",
+  "scripts": {
+    "pretest": "rm -rf coverage",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "posttest": "cat coverage/lcov.info | node bin/coverbadge.js -o badge.svg"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "cheerio": "^1.0.0-rc.1",
+    "lcov-parse": "^0.0.10",
+    "lcov2badge": "^0.1.0",
+    "lodash.get": "^4.4.2",
+    "mkdirp": "^0.5.1",
+    "shields-lightweight": "^0.1.0",
+    "yargs": "^8.0.1"
+  },
+  "devDependencies": {
+    "babel-jest": "^20.0.3",
+    "babel-preset-env": "^1.5.2",
+    "jest": "^20.0.4"
+  }
+}
