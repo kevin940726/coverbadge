@@ -3,7 +3,7 @@ Create a coverage badge without any service provider.
 
 ## See it in action
 
-![coverage](https://raw.githubusercontent.com/kevin940726/coverbadge/master/badge.svg)
+![coverage](badge.svg?raw=true)
 
 > 💯  Coverage increased (+1.81%) to 100%.
 
