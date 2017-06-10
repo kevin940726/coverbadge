@@ -13,18 +13,15 @@ general:
 dependencies:
   pre:
     - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-    - mv coverage/badge.svg badge.svg || true
   override:
     - yarn
   cache_directories:
     - ~/.cache/yarn
-    - coverage
 
 test:
   override:
     - yarn test
-    - mv badge.svg coverage/badge.svg || true
-    - yarn run coverbadge
+    - yarn run coverbadge -- -s circle -u $CIRCLE_PROJECT_USERNAME -p $CIRCLE_PROJECT_REPONAME
 
 deployment:
   npm:
