@@ -20,9 +20,8 @@ dependencies:
 
 test:
   override:
-    - mkdir -p coverage
-    - curl -L https://circleci-tkn.rhcloud.com/api/v1/project/kevin940726/coverbadge/tree/master/latest/artifacts/badge.svg -o coverage/badge.svg
     - yarn test
+    - curl -L https://circleci-tkn.rhcloud.com/api/v1/project/kevin940726/coverbadge/tree/master/latest/artifacts/badge.svg -o coverage/badge.svg
     - yarn run coverbadge
 
 deployment:
