@@ -16,17 +16,7 @@ const argv = yargs
   .alias('p', 'project')
   .alias('t', 'token')
   .default('vcs', 'github')
-  .argv
-
-process.stdin.resume();
-process.stdin.setEncoding('utf8');
-
-let data = '';
-
-/* istanbul ignore next */
-process.stdin.on('data', function(chunk) {
-  data += chunk;
-});
+  .argv;
 
 const displayCoverageInfo = (pastCoverage, coverage) => {
   const coverageText = chalk.underline.bold(`${coverage}%`);
@@ -79,6 +69,16 @@ const cli = (lcov, options = {}) => {
       });
   }
 };
+
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+
+let data = '';
+
+/* istanbul ignore next */
+process.stdin.on('data', function(chunk) {
+  data += chunk;
+});
 
 /* istanbul ignore next */
 process.stdin.on('end', () => cli(data, argv));
