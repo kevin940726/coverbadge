@@ -13,16 +13,18 @@ general:
 dependencies:
   pre:
     - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+    - mv coverage/badge.svg badge.svg || true
   override:
     - yarn
   cache_directories:
     - ~/.cache/yarn
+    - coverage
 
 test:
   override:
     - yarn test
-    - curl -L https://circleci-tkn.rhcloud.com/api/v1/project/kevin940726/coverbadge/tree/master/latest/artifacts/badge.svg -o coverage/badge.svg
-    # - yarn run coverbadge
+    - mv badge.svg coverage/badge.svg || true
+    - yarn run coverbadge
 
 deployment:
   npm:
