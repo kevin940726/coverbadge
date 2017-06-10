@@ -20,7 +20,7 @@ dependencies:
 
 test:
   override:
-    - yarn test
+    - yarn test -- --ci --runInBand
     - yarn run coverbadge -- -s circle -u $CIRCLE_PROJECT_USERNAME -p $CIRCLE_PROJECT_REPONAME
 
 deployment:
