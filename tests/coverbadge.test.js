@@ -187,6 +187,10 @@ describe('displayCoverageInfo', () => {
   it('should display correct info when remained', () => {
     expect(displayCoverageInfo(55, 55)).toMatchSnapshot();
   });
+
+  it('should display correct info when remained and hit 100%', () => {
+    expect(displayCoverageInfo(100, 100)).toMatchSnapshot();
+  });
 });
 
 describe('slack', () => {

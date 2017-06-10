@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`displayCoverageInfo should display correct info when decreased 1`] = `"[31m⚠️  Coverage decreased ([1m-11.00%[22m) to [4m[1m55%[22m[24m.[39m"`;
+exports[`displayCoverageInfo should display correct info when decreased 1`] = `"⚠️  [31mCoverage decreased ([1m-11.00%[22m) to [4m[1m55%[22m[24m.[39m"`;
 
-exports[`displayCoverageInfo should display correct info when increased 1`] = `"[32m🎉  Coverage increased ([1m+11.00%[22m) to [4m[1m66%[22m[24m.[39m"`;
+exports[`displayCoverageInfo should display correct info when increased 1`] = `"🎉  [32mCoverage increased ([1m+11.00%[22m) to [4m[1m66%[22m[24m.[39m"`;
 
-exports[`displayCoverageInfo should display correct info when increased and hit 100% 1`] = `"[32m💯  Coverage increased ([1m+45.00%[22m) to [4m[1m100%[22m[24m.[39m"`;
+exports[`displayCoverageInfo should display correct info when increased and hit 100% 1`] = `"💯  [32mCoverage increased ([1m+45.00%[22m) to [4m[1m100%[22m[24m.[39m"`;
 
-exports[`displayCoverageInfo should display correct info when remained 1`] = `"[32m🔖  Coverage remained the same at [4m[1m55%[22m[24m.[39m"`;
+exports[`displayCoverageInfo should display correct info when remained 1`] = `"🔖  [32mCoverage remained the same at [4m[1m55%[22m[24m.[39m"`;
+
+exports[`displayCoverageInfo should display correct info when remained and hit 100% 1`] = `"💯  [32mCoverage remained the same at [4m[1m100%[22m[24m.[39m"`;

@@ -32,14 +32,18 @@ const displayCoverageInfo = (pastCoverage, coverage) => {
   const coverageText = chalk.underline.bold(`${coverage}%`);
   const distance = chalk.bold(`${coverage > pastCoverage ? '+' : ''}${(coverage - pastCoverage).toFixed(2)}%`);
 
+  let emoji = coverage === 100 ? '💯' : '🔖';
+  let text = chalk.green(`Coverage remained the same at ${chalk.underline.bold(`${coverage}%`)}.`);
+
   if (pastCoverage > coverage) {
-    return chalk.red(`⚠️  Coverage decreased (${distance}) to ${coverageText}.`);
+    emoji = '⚠️';
+    text = chalk.red(`Coverage decreased (${distance}) to ${coverageText}.`);
   } else if (pastCoverage < coverage) {
-    const emoji = coverage === 100 ? '💯' : '🎉';
-    return chalk.green(`${emoji}  Coverage increased (${distance}) to ${coverageText}.`);
+    emoji = coverage === 100 ? '💯' : '🎉';
+    text = chalk.green(`Coverage increased (${distance}) to ${coverageText}.`);
   }
 
-  return chalk.green(`🔖  Coverage remained the same at ${chalk.underline.bold(`${coverage}%`)}.`);
+  return `${emoji}  ${text}`;
 };
 
 const cli = (lcov, options = {}) => {
