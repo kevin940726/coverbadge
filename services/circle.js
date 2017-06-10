@@ -36,10 +36,10 @@ const getBuildArtifacts = ({
   return api(`project/${vcs}/${username}/${project}/${buildNum}/artifacts${tokenQuery}`);
 };
 
-getLastBadgeURL = (artifacts, outputPath) => {
-  const artifact = artifacts.find(art => art.path.indexOf(outputPath) >= 0);
+const getLastBadgeURL = (artifacts, outputPath) => {
+  const artifact = artifacts.find(art => art.path.endsWith(path.basename(outputPath)));
   
-  return artifact.url;
+  return artifact && artifact.url;
 };
 
 const downloadBadge = (url, outputPath) => {
@@ -75,5 +75,11 @@ const circle = ({
 };
 
 module.exports = {
+  HOST,
+  api,
+  getBuildSummary,
+  getBuildArtifacts,
+  getLastBadgeURL,
+  downloadBadge,
   circle,
 };

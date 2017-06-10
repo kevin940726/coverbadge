@@ -15,6 +15,10 @@ afterEach(() => {
   circle.mockClear();
 });
 
+afterAll(() => {
+  process.stdin.destroy();
+});
+
 describe('cli', () => {
   it('should pass default object if no options', async () => {
     const lcov = 'lcov';
