@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 const yargs = require('yargs');
+const chalk = require('chalk');
 const { coverbadge } = require('../');
 
 // services
 const { circle } = require('../services/circle');
+const { sendSlackWebhook } = require('../services/slack');
 
 const argv = yargs
   .alias('o', 'out-file')
@@ -26,6 +28,20 @@ process.stdin.on('data', function(chunk) {
   data += chunk;
 });
 
+const displayCoverageInfo = (pastCoverage, coverage) => {
+  const coverageText = chalk.underline.bold(`${coverage}%`);
+  const distance = chalk.bold(`${coverage > pastCoverage ? '+' : ''}${(coverage - pastCoverage).toFixed(2)}%`);
+
+  if (pastCoverage > coverage) {
+    return chalk.red(`⚠️  Coverage decreased (${distance}) to ${coverageText}.`);
+  } else if (pastCoverage < coverage) {
+    const emoji = coverage === 100 ? '💯' : '🎉';
+    return chalk.green(`${emoji}  Coverage increased (${distance}) to ${coverageText}.`);
+  }
+
+  return chalk.green(`🔖  Coverage remained the same at ${chalk.underline.bold(`${coverage}%`)}.`);
+};
+
 const cli = (lcov, options = {}) => {
   if (options.o) {
     let preBuild = Promise.resolve();
@@ -45,7 +61,18 @@ const cli = (lcov, options = {}) => {
     return preBuild
       // proceed anyway
       .catch(() => Promise.resolve())
-      .then(() => coverbadge(lcov, options.o));
+      .then(() => coverbadge(lcov, options.o))
+      .then(([lastCoverage, coverage]) => {
+        if (lastCoverage && coverage) {
+          console.log(displayCoverageInfo(lastCoverage, coverage));
+
+          if (options.slack) {
+            sendSlackWebhook(options.slack, lastCoverage, coverage);
+          }
+        }
+
+        console.log(chalk.yellow(`Badge has successfully saved to ${chalk.underline(options.o)}!`));
+      });
   }
 };
 

@@ -39,7 +39,7 @@ const convertCoverageToColor = (value) => {
   } else {
     return 'brightgreen';
   }
-}
+};
 
 const getPastCoverage = (outputPath) => {
   if (fs.existsSync(outputPath)) {
@@ -58,20 +58,6 @@ const getPastCoverage = (outputPath) => {
   }
 
   return false;
-}
-
-const displayCoverageInfo = (pastCoverage, coverage) => {
-  const coverageText = chalk.underline.bold(`${coverage}%`);
-  const distance = chalk.bold(`${coverage > pastCoverage ? '+' : ''}${(coverage - pastCoverage).toFixed(2)}%`);
-
-  if (pastCoverage > coverage) {
-    return chalk.red(`⚠️  Coverage decreased (${distance}) to ${coverageText}.`);
-  } else if (pastCoverage < coverage) {
-    const emoji = coverage === 100 ? '💯' : '🎉';
-    return chalk.green(`${emoji}  Coverage increased (${distance}) to ${coverageText}.`);
-  }
-
-  return chalk.green(`🔖  Coverage remained the same at ${chalk.underline.bold(`${coverage}%`)}.`);
 };
 
 const coverbadge = (lcov, outputPath) => (
@@ -94,11 +80,7 @@ const coverbadge = (lcov, outputPath) => (
 
     fs.writeFileSync(outputPath, svgBadge);
 
-    if (pastCoverage) {
-      console.log(displayCoverageInfo(pastCoverage, coverage));
-    }
-
-    console.log(chalk.yellow(`Badge has successfully saved to ${chalk.underline(outputPath)}!`));
+    return [pastCoverage, coverage];
   })
 );
 
@@ -106,6 +88,5 @@ module.exports = {
   calculateCoverage,
   convertCoverageToColor,
   getPastCoverage,
-  displayCoverageInfo,
   coverbadge,
 };
