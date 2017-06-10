@@ -1,6 +1,10 @@
-import cli from '../bin/coverbadge';
+import {
+  displayCoverageInfo,
+  cli,
+} from '../bin/coverbadge';
 import { coverbadge } from '../';
 import { circle } from '../services/circle';
+import { sendSlackWebhook } from '../services/slack';
 
 jest.mock('../', () => ({
   coverbadge: jest.fn(),
@@ -9,6 +13,14 @@ jest.mock('../', () => ({
 jest.mock('../services/circle', () => ({
   circle: jest.fn(() => Promise.resolve()),
 }));
+
+jest.mock('../services/slack', () => ({
+  sendSlackWebhook: jest.fn(),
+}));
+
+beforeAll(() => {
+  console.log = jest.fn();
+});
 
 afterEach(() => {
   coverbadge.mockClear();
@@ -38,9 +50,26 @@ describe('cli', () => {
 
     expect(coverbadge).not.toHaveBeenCalled();
   });
+
+  it('should only call console once if no lastCoverage', async () => {
+    coverbadge.mockImplementationOnce(() => [false, 100]);
+
+    const outputPath = './coverage/badge.svg';
+    const options = {
+      o: outputPath,
+    };
+
+    await cli('lcov', options);
+
+    expect(console.log).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe('coverbadge', () => {
+  beforeEach(() => {
+    coverbadge.mockImplementationOnce(() => [50, 100]);
+  });
+
   it('should call coverbadge when there is service', async () => {
     const lcov = 'lcov';
     const outputPath = './output/path';
@@ -83,6 +112,10 @@ describe('coverbadge', () => {
 });
 
 describe('circle', () => {
+  beforeEach(() => {
+    coverbadge.mockImplementationOnce(() => [50, 100]);
+  });
+
   it('should call circle with options', async () => {
     const lcov = 'lcov';
     const outputPath = './output/path';
@@ -135,5 +168,39 @@ describe('circle', () => {
       vcs,
       token,
     });
+  });
+});
+
+describe('displayCoverageInfo', () => {
+  it('should display correct info when decreased', () => {
+    expect(displayCoverageInfo(66, 55)).toMatchSnapshot();
+  });
+
+  it('should display correct info when increased', () => {
+    expect(displayCoverageInfo(55, 66)).toMatchSnapshot();
+  });
+
+  it('should display correct info when increased and hit 100%', () => {
+    expect(displayCoverageInfo(55, 100)).toMatchSnapshot();
+  });
+
+  it('should display correct info when remained', () => {
+    expect(displayCoverageInfo(55, 55)).toMatchSnapshot();
+  });
+});
+
+describe('slack', () => {
+  it('should call slack if option have slack', async () => {
+    coverbadge.mockImplementationOnce(() => [50, 100]);
+
+    const outputPath = './coverage/badge.svg';
+    const options = {
+      o: outputPath,
+      slack: 'slack',
+    };
+
+    await cli('lcov', options);
+
+    expect(sendSlackWebhook).toHaveBeenCalledWith('slack', 50, 100);
   });
 });

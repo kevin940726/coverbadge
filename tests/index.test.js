@@ -128,35 +128,14 @@ describe('getPastCoverage', () => {
   });
 });
 
-describe('displayCoverageInfo', () => {
-  it('should display correct info when decreased', () => {
-    expect(displayCoverageInfo(66, 55)).toMatchSnapshot();
-  });
-
-  it('should display correct info when increased', () => {
-    expect(displayCoverageInfo(55, 66)).toMatchSnapshot();
-  });
-
-  it('should display correct info when increased and hit 100%', () => {
-    expect(displayCoverageInfo(55, 100)).toMatchSnapshot();
-  });
-
-  it('should display correct info when remained', () => {
-    expect(displayCoverageInfo(55, 55)).toMatchSnapshot();
-  });
-});
-
 describe('coverbadge', () => {
-  beforeAll(() => {
-    console.log = jest.fn();
-  });
+  const outputPath = './some/output/path.svg';
 
   afterEach(() => {
+    fs.deleteFileSync(outputPath);
     jest.clearAllMocks();
     parse.resetInfo();
   });
-
-  const outputPath = './some/output/path.svg';
 
   it('should call svg', async () => {
     parse.setInfo([{
@@ -194,20 +173,28 @@ describe('coverbadge', () => {
     expect(fs.readFileSync(outputPath)).toBe('<text>33.33%</text>');
   });
 
-  it('should call console two times if there is past badge', async () => {
+  it('should return lastCoverage and current coverage', async () => {
+    parse.setInfo([{
+      lines: { found: 15, hit: 5 },
+    }]);
     fs.writeFileSync(outputPath, '<text>10%</text>');
 
-    await coverbadge(mockedLcovInfo, outputPath);
+    const [lastCoverage, coverage] = await coverbadge(mockedLcovInfo, outputPath);
 
-    expect(console.log).toHaveBeenCalledTimes(2);
+    expect(lastCoverage).toBe(10);
+    expect(coverage).toBe(33.33);
 
     fs.deleteFileSync(outputPath);
   });
 
-  it('should call console one time if there is no past badge', async () => {
-    await coverbadge(mockedLcovInfo, outputPath);
+  it('should return only current coverage if no last', async () => {
+    parse.setInfo([{
+      lines: { found: 15, hit: 5 },
+    }]);
+    const [lastCoverage, coverage] = await coverbadge(mockedLcovInfo, outputPath);
 
-    expect(console.log).toHaveBeenCalledTimes(1);
+    expect(lastCoverage).toBe(false);
+    expect(coverage).toBe(33.33);
   });
 
   it('should throw error if parse failed', () => {

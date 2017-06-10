@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`formatMessage should display correct info when decreased 1`] = `
+Object {
+  "emoji": ":warning:",
+  "text": "Coverage decreased (*-11.00%*) to *55%*.",
+}
+`;
+
+exports[`formatMessage should display correct info when hit 100% 1`] = `
+Object {
+  "emoji": ":100:",
+  "text": "Coverage increased (*+45.00%*) to *100%*.",
+}
+`;
+
+exports[`formatMessage should display correct info when increased 1`] = `
+Object {
+  "emoji": ":tada:",
+  "text": "Coverage increased (*+11.00%*) to *66%*.",
+}
+`;
+
+exports[`formatMessage should display correct info when remained 1`] = `
+Object {
+  "emoji": ":bookmark:",
+  "text": "Coverage remained the same at *55%*.",
+}
+`;
+
+exports[`formatMessage should display correct info when remained and hit 100% 1`] = `
+Object {
+  "emoji": ":100:",
+  "text": "Coverage remained the same at *100%*.",
+}
+`;
+
+exports[`sendSlackWebhook should call fetch with parameters 1`] = `
+Array [
+  Array [
+    "slack",
+    Object {
+      "body": "{\\"username\\":\\"coverbadge\\",\\"icon_emoji\\":\\":100:\\",\\"text\\":\\"Coverage increased (*+50.00%*) to *100%*.\\"}",
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+      "method": "POST",
+    },
+  ],
+]
+`;

@@ -1,3 +1,5 @@
+const fetch = require('isomorphic-fetch');
+
 const formatMessage = (lastCoverage, coverage) => {
   const coverageText = `${coverage}%`;
   const distance = `${coverage > lastCoverage ? '+' : ''}${(coverage - lastCoverage).toFixed(2)}%`;

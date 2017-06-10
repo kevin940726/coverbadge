@@ -63,7 +63,7 @@ const cli = (lcov, options = {}) => {
       .catch(() => Promise.resolve())
       .then(() => coverbadge(lcov, options.o))
       .then(([lastCoverage, coverage]) => {
-        if (lastCoverage && coverage) {
+        if (typeof lastCoverage === 'number') {
           console.log(displayCoverageInfo(lastCoverage, coverage));
 
           if (options.slack) {
@@ -79,4 +79,7 @@ const cli = (lcov, options = {}) => {
 /* istanbul ignore next */
 process.stdin.on('end', () => cli(data, argv));
 
-module.exports = cli;
+module.exports = {
+  displayCoverageInfo,
+  cli,
+};
