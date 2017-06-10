@@ -1,9 +1,11 @@
 # coverbadge
 Create a coverage badge without any service provider.
 
+[![CircleCI](https://circleci.com/gh/kevin940726/coverbadge.svg?style=shield)](https://circleci.com/gh/kevin940726/coverbadge)
+
 ## See it in action
 
-![coverage](https://circleci-tkn.rhcloud.com/api/v1/project/kevin940726/coverbadge/tree/master/latest/artifacts/badge.svg)
+[![coverage](https://circleci-tkn.rhcloud.com/api/v1/project/kevin940726/coverbadge/tree/master/latest/artifacts/badge.svg)](https://circleci-tkn.rhcloud.com/api/v1/project/kevin940726/coverbadge/tree/master/latest/artifacts/index.html)
 
 > 💯  Coverage increased (+1.81%) to 100%.
 
