@@ -19,24 +19,25 @@ const argv = yargs
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
-let lcov = '';
+let data = '';
 
+/* istanbul ignore next */
 process.stdin.on('data', function(chunk) {
-  lcov += chunk;
+  data += chunk;
 });
 
-process.stdin.on('end', () => {
-  if (argv && argv.o) {
+const cli = (lcov, options = {}) => {
+  if (options.o) {
     let preBuild = Promise.resolve();
 
-    if (argv.s) {
-      if (argv.s === 'circle') {
+    if (options.s) {
+      if (options.s === 'circle') {
         preBuild = circle({
-          username: argv.u,
-          project: argv.p,
-          token: argv.t || null,
-          vcs: argv.vcs,
-          outputPath: argv.o,
+          username: options.u,
+          project: options.p,
+          token: options.t || null,
+          vcs: options.vcs,
+          outputPath: options.o,
         });
       }
     }
@@ -44,6 +45,11 @@ process.stdin.on('end', () => {
     return preBuild
       // proceed anyway
       .catch(() => Promise.resolve())
-      .then(() => coverbadge(lcov, argv.o));
+      .then(() => coverbadge(lcov, options.o));
   }
-});
+};
+
+/* istanbul ignore next */
+process.stdin.on('end', () => cli(data, argv));
+
+module.exports = cli;
