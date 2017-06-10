@@ -21,6 +21,7 @@ dependencies:
 test:
   override:
     - yarn test
+    - yarn run coverbadge
 
 deployment:
   npm:

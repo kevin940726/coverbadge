@@ -3,7 +3,7 @@ Create a coverage badge without any service provider.
 
 ## See it in action
 
-![coverage](https://cdn.rawgit.com/kevin940726/coverbadge/master/badge.svg)
+![coverage](https://circleci-tkn.rhcloud.com/api/v1/project/kevin940726/coverbadge/tree/master/latest/artifacts/badge.svg)
 
 > 💯  Coverage increased (+1.81%) to 100%.
 
