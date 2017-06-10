@@ -42,6 +42,8 @@ process.stdin.on('end', () => {
     }
 
     return preBuild
+      // proceed anyway
+      .catch(() => Promise.resolve())
       .then(() => coverbadge(lcov, argv.o));
   }
 });

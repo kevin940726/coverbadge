@@ -46,7 +46,6 @@ const downloadBadge = (url, outputPath) => {
   return fetch(url)
     .then(res => res.text())
     .then((svg) => {
-      console.log(svg);
       fs.writeFileSync(path.resolve(process.cwd(), outputPath), svg);
     });
 }
