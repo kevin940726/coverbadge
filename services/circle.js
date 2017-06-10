@@ -21,7 +21,7 @@ const getBuildSummary = ({
 }) => {
   const tokenQuery = token ? `circle-token=${token}&` : '';
 
-  return api(`project/${vcs}/${username}/${project}?${tokenQuery}limit=1&filter=successful`)
+  return api(`project/${vcs}/${username}/${project}?${tokenQuery}limit=1&filter=running`)
 };
 
 const getBuildArtifacts = ({
