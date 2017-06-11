@@ -59,6 +59,7 @@ const circle = ({
   vcs = 'github',
   branch,
   outputPath,
+  lastBuildNum,
 }) => {
   const payload = {
     username,
@@ -68,12 +69,7 @@ const circle = ({
     branch,
   };
 
-  return getBuildSummary(payload)
-    .then(summary => (
-      getBuildArtifacts(Object.assign({}, payload, {
-        buildNum: get(summary, [0, 'previous_successful_build', 'build_num']),
-      }))
-    ))
+  return getBuildArtifacts(Object.assign({}, payload, { buildNum: lastBuildNum }))
     .then(artifacts => getLastBadgeURL(artifacts, outputPath))
     .then(url => downloadBadge(url, outputPath))
 };

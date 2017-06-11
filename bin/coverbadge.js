@@ -49,6 +49,7 @@ const cli = (lcov, options = {}) => {
           token: options.t || null,
           vcs: options.vcs,
           outputPath: options.o,
+          lastBuildNum: options.lastBuild,
         });
       }
     }
