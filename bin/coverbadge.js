@@ -10,12 +10,13 @@ const { sendSlackWebhook } = require('../services/slack');
 const argv = yargs
   .alias('o', 'out-file')
   .default('o', 'badge.svg', '(output file path)')
+  .default('vcs', 'github')
   .nargs('o', 1)
   .alias('s', 'service')
   .alias('u', 'username')
   .alias('p', 'project')
   .alias('t', 'token')
-  .default('vcs', 'github')
+  .alias('b', 'branch')
   .argv;
 
 const displayCoverageInfo = (pastCoverage, coverage) => {

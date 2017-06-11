@@ -18,10 +18,12 @@ const getBuildSummary = ({
   project,
   vcs = 'github',
   token = null,
+  branch,
 }) => {
   const tokenQuery = token ? `circle-token=${token}&` : '';
+  const branchQuery = branch ? `/tree/${encodeURIComponent(branch)}` : '';
 
-  return api(`project/${vcs}/${username}/${project}?${tokenQuery}limit=1&filter=running`)
+  return api(`project/${vcs}/${username}/${project}${branchQuery}?${tokenQuery}limit=1&filter=running`)
 };
 
 const getBuildArtifacts = ({
@@ -55,6 +57,7 @@ const circle = ({
   project,
   token = null,
   vcs = 'github',
+  branch,
   outputPath,
 }) => {
   const payload = {
@@ -62,6 +65,7 @@ const circle = ({
     project,
     token,
     vcs,
+    branch,
   };
 
   return getBuildSummary(payload)

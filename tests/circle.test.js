@@ -69,6 +69,22 @@ describe('getBuildSummary', () => {
     expect(fetch).toHaveBeenCalledWith(`${HOST}/project/${vcs}/${username}/${project}?circle-token=${token}&limit=1&filter=running`, defaultOptions);
     expect(result).toBe(mockResponse);
   });
+
+  it('should call branch api if there is branch', async () => {
+    const mockResponse = {};
+    fetch.__setData(mockResponse);
+
+    const result = await getBuildSummary({
+      username,
+      project,
+      token,
+      vcs,
+      branch: 'master',
+    });
+
+    expect(fetch).toHaveBeenCalledWith(`${HOST}/project/${vcs}/${username}/${project}/tree/master?circle-token=${token}&limit=1&filter=running`, defaultOptions);
+    expect(result).toBe(mockResponse);
+  });
 });
 
 describe('getBuildArtifacts', () => {
