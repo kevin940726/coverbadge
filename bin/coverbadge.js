@@ -18,6 +18,7 @@ const argv = yargs
   .alias('t', 'token')
   .alias('b', 'branch')
   .string('prs')
+  .string('style')
   .argv;
 
 const displayCoverageInfo = (pastCoverage, coverage) => {
@@ -58,7 +59,7 @@ const cli = (lcov, options = {}) => {
     return preBuild
       // proceed anyway
       .catch(() => Promise.resolve())
-      .then(() => coverbadge(lcov, options.o))
+      .then(() => coverbadge(lcov, options.o, options.style))
       .then(([lastCoverage, coverage]) => {
         if (typeof lastCoverage === 'number') {
           console.log(displayCoverageInfo(lastCoverage, coverage));

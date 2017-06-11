@@ -60,7 +60,7 @@ const getPastCoverage = (outputPath) => {
   return false;
 };
 
-const coverbadge = (lcov, outputPath) => (
+const coverbadge = (lcov, outputPath, style = 'flat') => (
   calculateCoverage(lcov).then((coverageRatio) => {
     const coverage = Math.floor(coverageRatio * 10000) / 100;
 
@@ -68,7 +68,7 @@ const coverbadge = (lcov, outputPath) => (
       'coverage',
       `${coverage}%`,
       convertCoverageToColor(coverage),
-      'plastic'
+      style
     );
 
     const dir = path.dirname(outputPath);
