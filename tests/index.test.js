@@ -144,7 +144,7 @@ describe('coverbadge', () => {
 
     await coverbadge(mockedLcovInfo, outputPath);
 
-    expect(shields.svg).toHaveBeenCalledWith('coverage', '33.33%', 'yellow', 'plastic');
+    expect(shields.svg).toHaveBeenCalledWith('coverage', '33.33%', 'yellow', 'flat');
   });
 
   it('should called mkdirp if dir not exist', async () => {

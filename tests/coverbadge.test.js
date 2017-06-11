@@ -80,7 +80,7 @@ describe('coverbadge', () => {
 
     await cli(lcov, options);
 
-    expect(coverbadge).toHaveBeenCalledWith(lcov, outputPath);
+    expect(coverbadge).toHaveBeenCalledWith(lcov, outputPath, undefined);
   });
 
   it('should still call coverbadge when no service', async () => {
@@ -92,7 +92,7 @@ describe('coverbadge', () => {
 
     await cli(lcov, options);
 
-    expect(coverbadge).toHaveBeenCalledWith(lcov, outputPath);
+    expect(coverbadge).toHaveBeenCalledWith(lcov, outputPath, undefined);
   });
 
   it('should still call coverbadge when there is service and the service fail', async () => {
@@ -107,7 +107,7 @@ describe('coverbadge', () => {
 
     await cli(lcov, options);
 
-    expect(coverbadge).toHaveBeenCalledWith(lcov, outputPath);
+    expect(coverbadge).toHaveBeenCalledWith(lcov, outputPath, undefined);
   });
 });
 
