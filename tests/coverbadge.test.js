@@ -205,6 +205,6 @@ describe('slack', () => {
 
     await cli('lcov', options);
 
-    expect(sendSlackWebhook).toHaveBeenCalledWith('slack', 50, 100);
+    expect(sendSlackWebhook.mock.calls[0].slice(0, 3)).toEqual(['slack', 50, 100]);
   });
 });

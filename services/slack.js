@@ -29,7 +29,7 @@ const sendSlackWebhook = (webhook, lastCoverage, coverage, others = {}) => {
   if (vcs && username && project) {
     const repoURL = `https://${vcs}.com/${username}/${project}`; 
     const repo = `<https://${vcs}.com/${username}/${project}/${branch ? `/tree/${branch}` : ''}|[${username}/${project}]>`;
-    const branchSuffix = branch ? ` on <${repoURL}/tree/${branch}|${branch}>`;
+    const branchSuffix = branch ? ` on <${repoURL}/tree/${branch}|${branch}>` : '';
     body = `<${repoURL}|[${username}/${project}]> ${text}${branchSuffix}`;
   }
 
