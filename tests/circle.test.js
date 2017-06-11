@@ -168,9 +168,6 @@ describe('circle', () => {
 
     fetch.__pushReturnData(
       [{
-        previous_successful_build: { build_num: 10 },
-      }],
-      [{
         path: `/home/ubuntu/coverbadge/coverage/badge.svg`,
         url: 'url',
       }],
@@ -181,6 +178,7 @@ describe('circle', () => {
       username,
       project,
       outputPath,
+      lastBuildNum: 10,
     });
 
     const file = fs.readFileSync(path.resolve(process.cwd(), outputPath));
