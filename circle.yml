@@ -22,7 +22,6 @@ test:
   override:
     - yarn test -- --ci --runInBand
     - yarn run coverbadge -- -s circle --last-build $CIRCLE_PREVIOUS_BUILD_NUM -u $CIRCLE_PROJECT_USERNAME -p $CIRCLE_PROJECT_REPONAME -b $CIRCLE_BRANCH --slack $SLACK_WEBHOOK_URL --prs $CI_PULL_REQUESTS
-    - yarn svgexport coverage/badge.svg coverage/badge.png
 
 deployment:
   npm:
