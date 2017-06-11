@@ -69,3 +69,41 @@ describe('sendSlackWebhook', () => {
     expect(result).toBeUndefined();
   });
 });
+
+describe('PR', () => {
+  afterEach(() => {
+    fetch.mockClear();
+  });
+
+  it('should process one pr', async () => {
+    await sendSlackWebhook('slack', 50, 100, {
+      prs: 'https://github.com/kevin940726/coverbadge/pull/2',
+    });
+
+    expect(fetch.mock.calls).toMatchSnapshot();
+  });
+
+  it('should process multiple prs', async () => {
+    await sendSlackWebhook('slack', 50, 100, {
+      prs: 'https://github.com/kevin940726/coverbadge/pull/1, https://github.com/kevin940726/coverbadge/pull/2',
+    });
+
+    expect(fetch.mock.calls).toMatchSnapshot();
+  });
+
+  it('should handle link error', async () => {
+    await sendSlackWebhook('slack', 50, 100, {
+      prs: 'https://github.com/kevin940726/coverbadge/pull/1,',
+    });
+
+    expect(fetch.mock.calls).toMatchSnapshot();
+  });
+
+  it('should handle regex error', async () => {
+    await sendSlackWebhook('slack', 50, 100, {
+      prs: 'https://github.com/kevin940726/coverbadge/pull/1x,https://github.com/kevin940726/coverbadge/pull/2',
+    });
+
+    expect(fetch.mock.calls).toMatchSnapshot();
+  });
+});

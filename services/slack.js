@@ -39,7 +39,7 @@ const sendSlackWebhook = (webhook, lastCoverage, coverage, others = {}) => {
   }
 
   if (prs) {
-    const PR_REGEX = /\/(\d+)\/?$/g;
+    const PR_REGEX = /(?:\/|#)(\d+)\/?$/g;
     const prsLinks = prs.split(',').map((pr) => {
       const link = pr.trim();
 

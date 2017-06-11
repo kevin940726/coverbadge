@@ -1,5 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`PR should handle link error 1`] = `
+Array [
+  Array [
+    "slack",
+    Object {
+      "body": "{\\"username\\":\\"coverbadge\\",\\"icon_emoji\\":\\":100:\\",\\"text\\":\\"Coverage increased (*+50.00%*) to *100%*. (<https://github.com/kevin940726/coverbadge/pull/1|#1>)\\"}",
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+      "method": "POST",
+    },
+  ],
+]
+`;
+
+exports[`PR should handle regex error 1`] = `
+Array [
+  Array [
+    "slack",
+    Object {
+      "body": "{\\"username\\":\\"coverbadge\\",\\"icon_emoji\\":\\":100:\\",\\"text\\":\\"Coverage increased (*+50.00%*) to *100%*. (<https://github.com/kevin940726/coverbadge/pull/2|#2>)\\"}",
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+      "method": "POST",
+    },
+  ],
+]
+`;
+
+exports[`PR should process multiple prs 1`] = `
+Array [
+  Array [
+    "slack",
+    Object {
+      "body": "{\\"username\\":\\"coverbadge\\",\\"icon_emoji\\":\\":100:\\",\\"text\\":\\"Coverage increased (*+50.00%*) to *100%*. (<https://github.com/kevin940726/coverbadge/pull/1|#1>,<https://github.com/kevin940726/coverbadge/pull/2|#2>)\\"}",
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+      "method": "POST",
+    },
+  ],
+]
+`;
+
+exports[`PR should process one pr 1`] = `
+Array [
+  Array [
+    "slack",
+    Object {
+      "body": "{\\"username\\":\\"coverbadge\\",\\"icon_emoji\\":\\":100:\\",\\"text\\":\\"Coverage increased (*+50.00%*) to *100%*. (<https://github.com/kevin940726/coverbadge/pull/2|#2>)\\"}",
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+      "method": "POST",
+    },
+  ],
+]
+`;
+
 exports[`formatMessage should display correct info when decreased 1`] = `
 Object {
   "emoji": ":warning:",
