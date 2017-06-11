@@ -59,4 +59,13 @@ describe('sendSlackWebhook', () => {
 
     expect(fetch.mock.calls).toMatchSnapshot();
   });
+
+  it('should ignore and resolve if remained the same and have that option', async () => {
+    const result = await sendSlackWebhook('slack', 87, 87, {
+      ignoreSame: true,
+    });
+
+    expect(fetch).not.toHaveBeenCalled();
+    expect(result).toBeUndefined();
+  });
 });

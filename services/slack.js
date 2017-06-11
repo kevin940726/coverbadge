@@ -23,8 +23,13 @@ const formatMessage = (lastCoverage, coverage) => {
 
 const sendSlackWebhook = (webhook, lastCoverage, coverage, others = {}) => {
   const { emoji, text } = formatMessage(lastCoverage, coverage);
-  const { vcs, username, project, branch } = others;
+  const { vcs, username, project, branch, ignoreSame } = others;
   let body = text;
+
+  // bypass slack if the coverage remained the same
+  if (ignoreSame && lastCoverage === coverage) {
+    return Promise.resolve();
+  }
 
   if (vcs && username && project) {
     const repoURL = `https://${vcs}.com/${username}/${project}`; 
