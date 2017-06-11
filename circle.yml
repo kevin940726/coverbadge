@@ -21,9 +21,12 @@ dependencies:
 test:
   override:
     - yarn test -- --ci --runInBand
-    - yarn run coverbadge -- -s circle -u $CIRCLE_PROJECT_USERNAME -p $CIRCLE_PROJECT_REPONAME -b master --slack $SLACK_WEBHOOK_URL
 
 deployment:
+  coverbadge:
+    branch: master
+    commands:
+      - yarn run coverbadge -- -s circle -u $CIRCLE_PROJECT_USERNAME -p $CIRCLE_PROJECT_REPONAME -b master --slack $SLACK_WEBHOOK_URL
   npm:
     tag: /v[0-9]+(\.[0-9]+)*/
     commands:
