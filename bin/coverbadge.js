@@ -62,7 +62,7 @@ const cli = (lcov, options = {}) => {
           console.log(displayCoverageInfo(lastCoverage, coverage));
 
           if (options.slack) {
-            sendSlackWebhook(options.slack, lastCoverage, coverage);
+            sendSlackWebhook(options.slack, lastCoverage, coverage, argv);
           }
         }
 

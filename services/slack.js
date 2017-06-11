@@ -21,8 +21,17 @@ const formatMessage = (lastCoverage, coverage) => {
   };
 };
 
-const sendSlackWebhook = (webhook, lastCoverage, coverage) => {
+const sendSlackWebhook = (webhook, lastCoverage, coverage, others = {}) => {
   const { emoji, text } = formatMessage(lastCoverage, coverage);
+  const { vcs, username, project, branch } = others;
+  let body = text;
+
+  if (vcs && username && project) {
+    const repoURL = `https://${vcs}.com/${username}/${project}`; 
+    const repo = `<https://${vcs}.com/${username}/${project}/${branch ? `/tree/${branch}` : ''}|[${username}/${project}]>`;
+    const branchSuffix = branch ? ` on <${repoURL}/tree/${branch}|${branch}>`;
+    body = `<${repoURL}|[${username}/${project}]> ${text}${branchSuffix}`;
+  }
 
   return fetch(webhook, {
     method: 'POST',
@@ -32,7 +41,7 @@ const sendSlackWebhook = (webhook, lastCoverage, coverage) => {
     body: JSON.stringify({
       username: 'coverbadge',
       icon_emoji: emoji,
-      text,
+      text: body,
     }),
   });
 };
