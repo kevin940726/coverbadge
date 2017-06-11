@@ -202,4 +202,14 @@ describe('coverbadge', () => {
 
     expect(coverbadge(mockedLcovInfo, outputPath)).rejects.toBeDefined();
   });
+
+  it('should change style', async () => {
+    parse.setInfo([{
+      lines: { found: 15, hit: 5 },
+    }]);
+
+    await coverbadge(mockedLcovInfo, outputPath, 'plastic');
+
+    expect(shields.svg).toHaveBeenCalledWith('coverage', '33.33%', 'yellow', 'plastic');
+  });
 });

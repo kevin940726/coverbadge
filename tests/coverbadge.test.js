@@ -109,6 +109,19 @@ describe('coverbadge', () => {
 
     expect(coverbadge).toHaveBeenCalledWith(lcov, outputPath, undefined);
   });
+
+  it('should change style with option', async () => {
+    const lcov = 'lcov';
+    const outputPath = './output/path';
+    const options = {
+      o: outputPath,
+      style: 'plastic',
+    };
+
+    await cli(lcov, options);
+
+    expect(coverbadge).toHaveBeenCalledWith(lcov, outputPath, 'plastic');
+  });
 });
 
 describe('circle', () => {
