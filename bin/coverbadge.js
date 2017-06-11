@@ -17,6 +17,7 @@ const argv = yargs
   .alias('p', 'project')
   .alias('t', 'token')
   .alias('b', 'branch')
+  .string('prs')
   .argv;
 
 const displayCoverageInfo = (pastCoverage, coverage) => {
