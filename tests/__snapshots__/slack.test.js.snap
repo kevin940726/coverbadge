@@ -49,3 +49,33 @@ Array [
   ],
 ]
 `;
+
+exports[`sendSlackWebhook should format the text if have other options 1`] = `
+Array [
+  Array [
+    "slack",
+    Object {
+      "body": "{\\"username\\":\\"coverbadge\\",\\"icon_emoji\\":\\":100:\\",\\"text\\":\\"<https://github.com/usernmame/project|[usernmame/project]> Coverage increased (*+50.00%*) to *100%*.\\"}",
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+      "method": "POST",
+    },
+  ],
+]
+`;
+
+exports[`sendSlackWebhook should further format the text if have branch 1`] = `
+Array [
+  Array [
+    "slack",
+    Object {
+      "body": "{\\"username\\":\\"coverbadge\\",\\"icon_emoji\\":\\":100:\\",\\"text\\":\\"<https://github.com/usernmame/project|[usernmame/project]> Coverage increased (*+50.00%*) to *100%*. on <https://github.com/usernmame/project/tree/branch|branch>\\"}",
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+      "method": "POST",
+    },
+  ],
+]
+`;
