@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`PR should handle empty space prs 1`] = `
+Array [
+  Array [
+    "slack",
+    Object {
+      "body": "{\\"username\\":\\"coverbadge\\",\\"icon_emoji\\":\\":100:\\",\\"text\\":\\"Coverage increased (*+50.00%*) to *100%*.\\"}",
+      "headers": Object {
+        "Content-Type": "application/json",
+      },
+      "method": "POST",
+    },
+  ],
+]
+`;
+
 exports[`PR should handle link error 1`] = `
 Array [
   Array [

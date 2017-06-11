@@ -106,4 +106,12 @@ describe('PR', () => {
 
     expect(fetch.mock.calls).toMatchSnapshot();
   });
+
+  it('should handle empty space prs', async () => {
+    await sendSlackWebhook('slack', 50, 100, {
+      prs: ' ',
+    });
+
+    expect(fetch.mock.calls).toMatchSnapshot();
+  });
 });

@@ -38,7 +38,7 @@ const sendSlackWebhook = (webhook, lastCoverage, coverage, others = {}) => {
     body = `<${repoURL}|[${username}/${project}]> ${text}${branchSuffix}`;
   }
 
-  if (prs) {
+  if (prs && prs.trim()) {
     const PR_REGEX = /(?:\/|#)(\d+)\/?$/g;
     const prsLinks = prs.split(',').map((pr) => {
       const link = pr.trim();
