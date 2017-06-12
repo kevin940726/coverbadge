@@ -58,7 +58,10 @@ const cli = (lcov, options = {}) => {
 
     return preBuild
       // proceed anyway
-      .catch(() => Promise.resolve())
+      .catch((err) => {
+        console.error(err);
+        return Promise.resolve();
+      })
       .then(() => coverbadge(lcov, options.o, options.style))
       .then(([lastCoverage, coverage]) => {
         if (typeof lastCoverage === 'number') {
@@ -67,6 +70,8 @@ const cli = (lcov, options = {}) => {
           if (options.slack) {
             sendSlackWebhook(options.slack, lastCoverage, coverage, argv);
           }
+        } else {
+          console.log(chalk.green(`🔖  Coverage is ${coverage}%`));
         }
 
         console.log(chalk.yellow(`Badge has successfully saved to ${chalk.underline(options.o)}!`));
