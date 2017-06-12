@@ -51,7 +51,7 @@ describe('cli', () => {
     expect(coverbadge).not.toHaveBeenCalled();
   });
 
-  it('should only call console once if no lastCoverage', async () => {
+  it('should only call console twice if no lastCoverage', async () => {
     coverbadge.mockImplementationOnce(() => [false, 100]);
 
     const outputPath = './coverage/badge.svg';
@@ -61,7 +61,7 @@ describe('cli', () => {
 
     await cli('lcov', options);
 
-    expect(console.log).toHaveBeenCalledTimes(1);
+    expect(console.log).toHaveBeenCalledTimes(2);
   });
 });
 
