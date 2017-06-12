@@ -160,6 +160,15 @@ describe('downloadBadge', () => {
 
     expect(file).toBe('svg');
   });
+
+  it('should download the badge from url with token', async () => {
+    fetch.__setData('svg');
+    const outputPath = './coverage/badges.svg';
+
+    await downloadBadge('url', outputPath, 'token');
+
+    expect(fetch).toHaveBeenCalledWith('url?circle-token=token');
+  });
 });
 
 describe('circle', () => {

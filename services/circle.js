@@ -44,8 +44,10 @@ const getLastBadgeURL = (artifacts, outputPath) => {
   return artifact && artifact.url;
 };
 
-const downloadBadge = (url, outputPath) => {
-  return fetch(url)
+const downloadBadge = (url, outputPath, token = null) => {
+  const tokenQuery = token ? `?circle-token=${token}` : '';
+
+  return fetch(`${url}${tokenQuery}`)
     .then(res => res.text())
     .then((svg) => {
       fs.writeFileSync(path.resolve(process.cwd(), outputPath), svg);
@@ -71,7 +73,7 @@ const circle = ({
 
   return getBuildArtifacts(Object.assign({}, payload, { buildNum: lastBuildNum }))
     .then(artifacts => getLastBadgeURL(artifacts, outputPath))
-    .then(url => downloadBadge(url, outputPath))
+    .then(url => downloadBadge(url, outputPath, token))
 };
 
 module.exports = {
