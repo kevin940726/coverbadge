@@ -1,6 +1,6 @@
 {
   "name": "coverbadge",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Create a coverage badge without any service provider.",
   "main": "index.js",
   "bin": {
